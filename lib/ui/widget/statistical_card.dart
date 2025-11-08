@@ -12,7 +12,8 @@ class StatisticalCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        height: 80,
+        height: 103,
+        width: 180,
         decoration: BoxDecoration(
           color: white,
           borderRadius: BorderRadius.circular(8),
@@ -33,13 +34,13 @@ class StatisticalCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Icon(icon.icon, size: 20, color: icon.color),
+                  Icon(icon.icon, size: 25, color: icon.color),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       title,
                       style: subheadingStyle.copyWith(
-                        fontSize: 12,
+                        fontSize: 20,
                         fontWeight: FontWeight.w500,
                       ),
                       maxLines: 1,

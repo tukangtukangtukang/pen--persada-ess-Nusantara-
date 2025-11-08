@@ -1,14 +1,15 @@
+// lib/ui/pages/home_page.dart - Updated Version
 import 'package:flutter/material.dart';
-import 'package:pen/data/model/User.dart';
 import 'package:pen/ui/theme/theme.dart';
 import 'package:pen/ui/widget/statistical_card.dart';
 import 'package:pen/ui/widget/graphic.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
+  
   @override
   Widget build(BuildContext context) {
-    String nama = "User";
+    String nama = "Fahmi";
     return Scaffold(
       backgroundColor: lightGray,
       appBar: AppBar(
@@ -88,8 +89,145 @@ class HomePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 24),
                   const GraphicalCard(),
+                  const SizedBox(height: 24),
+                  
+                  // Quick Action Buttons
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Menu Utama',
+                          style: headingStyle.copyWith(fontSize: 18),
+                        ),
+                        const SizedBox(height: 16),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildMenuButton(
+                                context,
+                                'Produksi',
+                                Icons.factory,
+                                amber,
+                                '/production',
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: _buildMenuButton(
+                                context,
+                                'Penjualan',
+                                Icons.point_of_sale,
+                                green,
+                                '/sales',
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildMenuButton(
+                                context,
+                                'Setoran',
+                                Icons.account_balance_wallet,
+                                purple,
+                                '/setoran',
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: _buildMenuButton(
+                                context,
+                                'Pelanggan',
+                                Icons.people,
+                                Colors.blue,
+                                '/customers',
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _buildMenuButton(
+                                context,
+                                'Supplier',
+                                Icons.local_shipping,
+                                Colors.orange,
+                                '/suppliers',
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: _buildMenuButton(
+                                context,
+                                'Transaksi',
+                                Icons.receipt_long,
+                                Colors.red,
+                                '/transactions',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMenuButton(
+    BuildContext context,
+    String title,
+    IconData icon,
+    Color color,
+    String route,
+  ) {
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, route);
+      },
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: color.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(color: color.withOpacity(0.3)),
+        ),
+        child: Column(
+          children: [
+            Icon(icon, size: 32, color: color),
+            const SizedBox(height: 8),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: color,
+              ),
+              textAlign: TextAlign.center,
             ),
           ],
         ),

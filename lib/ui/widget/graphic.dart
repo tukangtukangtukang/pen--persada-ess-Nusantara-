@@ -8,14 +8,15 @@ class GraphicalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: double.infinity,
+      width: 380,
+      height: 414,
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: white,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
+            color: Colors.grey,
             spreadRadius: 2,
             blurRadius: 5,
             offset: const Offset(0, 3),
@@ -52,6 +53,7 @@ class GraphicalCard extends StatelessWidget {
                           value: 25,
                           title: '',
                           radius: 30,
+                          
                         ),
                         PieChartSectionData(
                           color: const Color(0xFFFFCC5C),
@@ -108,7 +110,7 @@ class GraphicalCard extends StatelessWidget {
         Text(
           label,
           style: TextStyle(
-            fontSize: 12,
+            fontSize: 14,
             color: gray,
             fontWeight: FontWeight.w500,
           ),
