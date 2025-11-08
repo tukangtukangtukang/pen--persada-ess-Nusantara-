@@ -5,6 +5,12 @@ import 'package:pen/ui/pages/splash_screen.dart';
 import 'package:pen/ui/pages/production_page.dart';
 import 'package:pen/ui/pages/sales_page.dart';
 
+// Import page baru
+import 'package:pen/ui/pages/customer_page.dart'; // <-- Sudah ada
+import 'package:pen/ui/pages/supplier_page.dart'; // <-- Buat file ini
+import 'package:pen/ui/pages/transaksi_page.dart'; // <-- Buat file ini
+import 'package:pen/ui/pages/setoran_page.dart';   // <-- Buat file ini
+
 void main() {
   runApp(const MyApp());
 }
@@ -26,16 +32,18 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(),
         '/production': (context) => const ProductionPage(),
         '/sales': (context) => const SalesPage(),
-        '/setoran': (context) => const PlaceholderPage(title: 'Setoran'),
-        '/customers': (context) => const PlaceholderPage(title: 'Pelanggan'),
-        '/suppliers': (context) => const PlaceholderPage(title: 'Supplier'),
-        '/transactions': (context) => const PlaceholderPage(title: 'Transaksi'),
+        
+        // Ganti PlaceholderPage dengan page yang sesuai
+        '/setoran': (context) => const SetoranPage(),
+        '/customers': (context) => const CustomerPage(),
+        '/suppliers': (context) => const SupplierPage(),
+        '/transactions': (context) => const TransaksiPage(),
       },
     );
   }
 }
 
-// Placeholder page for routes not yet implemented
+// Placeholder page (bisa dihapus jika semua rute sudah diimplementasikan)
 class PlaceholderPage extends StatelessWidget {
   final String title;
   
