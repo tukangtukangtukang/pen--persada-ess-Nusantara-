@@ -18,21 +18,21 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const swaggerOptions = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "Persada ESS API",
-      version: "1.0.0",
-      description: "RESTful API (Supabase) - Persada ESS",
-    },
-    servers: [{ url: process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}` }]
-  },
-  apis: ["../routes/*.js", "./api/index.js"],
-};
+// const swaggerOptions = {
+//   definition: {
+//     openapi: "3.0.0",
+//     info: {
+//       title: "Persada ESS API",
+//       version: "1.0.0",
+//       description: "RESTful API (Supabase) - Persada ESS",
+//     },
+//     servers: [{ url: process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}` }]
+//   },
+//   apis: ["../routes/*.js", "./api/index.js"],
+// };
 
-const swaggerSpec = swaggerJSDoc(swaggerOptions);
-app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+// const swaggerSpec = swaggerJSDoc(swaggerOptions);
+// app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // simple root message
 app.get("/", (req, res) => res.send("Persada ESS API Running. Open /docs for API docs"));
@@ -46,7 +46,11 @@ app.use("/api/transactions", transactionsRouter);
 app.use("/api/setoran", setoranRouter);
 app.use("/api/users", usersRouter);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`✅ Server jalan di http://localhost:${PORT}`));
+// Cuma jalanin listen kalau di localhost (bukan di Vercel)
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => console.log(`✅ Server jalan di http://localhost:${PORT}`));
+}
 
+// Wajib export buat Vercel
 export default app;
