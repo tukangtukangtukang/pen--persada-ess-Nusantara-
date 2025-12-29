@@ -5,13 +5,13 @@ import dotenv from "dotenv";
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
 
-import customersRouter from "./routes/customers.js";
-import productsRouter from "./routes/products.js";
-import suppliersRouter from "./routes/suppliers.js";
-import supplierProductsRouter from "./routes/supplierProducts.js";
-import transactionsRouter from "./routes/transactions.js";
-import setoranRouter from "./routes/setoran.js";
-import usersRouter from "./routes/users.js";
+import customersRouter from "../routes/customers.js";
+import productsRouter from "../routes/products.js";
+import suppliersRouter from "../routes/suppliers.js";
+import supplierProductsRouter from "../routes/supplierProducts.js";
+import transactionsRouter from "../routes/transactions.js";
+import setoranRouter from "../routes/setoran.js";
+import usersRouter from "../routes/users.js";
 
 dotenv.config();
 const app = express();
@@ -28,7 +28,7 @@ const swaggerOptions = {
     },
     servers: [{ url: process.env.BASE_URL || `http://localhost:${process.env.PORT || 3000}` }]
   },
-  apis: ["./routes/*.js", "./server.js"],
+  apis: ["../routes/*.js", "./api/index.js"],
 };
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
