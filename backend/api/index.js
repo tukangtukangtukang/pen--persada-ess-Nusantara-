@@ -34,7 +34,7 @@ const swaggerOptions = {
     ]
   },
   // Pastikan path ini benar relatif terhadap folder api/
-  apis: ["../routes/*.js"],
+  apis: [path.join(process.cwd(), 'routes/*.js')],
 };
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
