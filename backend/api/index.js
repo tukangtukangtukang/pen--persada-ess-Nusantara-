@@ -1,11 +1,13 @@
 // api/index.js
-import path from "path";
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import swaggerUi from "swagger-ui-express";
 import swaggerJSDoc from "swagger-jsdoc";
+import path from "path"; // <--- JANGAN LUPA INI!
+import fs from "fs";     // <--- Kita tambah ini buat debugging file
 
+// Import Routes
 import customersRouter from "../routes/customers.js";
 import productsRouter from "../routes/products.js";
 import suppliersRouter from "../routes/suppliers.js";
@@ -19,6 +21,22 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// --- DEBUGGING FOLDER (Biar tau routes-nya kebawa apa nggak) ---
+try {
+  const routePath = path.join(process.cwd(), 'routes');
+  console.log("📂 Cek Folder Routes ada di:", routePath);
+  if (fs.existsSync(routePath)) {
+    console.log("✅ Folder Routes DITEMUKAN!");
+    const files = fs.readdirSync(routePath);
+    console.log("📄 Isi file:", files);
+  } else {
+    console.log("❌ Folder Routes TIDAK ADA di path tersebut!");
+  }
+} catch (error) {
+  console.log("⚠️ Gagal cek folder:", error.message);
+}
+// -----------------------------------------------------------
+
 const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
@@ -29,19 +47,16 @@ const swaggerOptions = {
     },
     servers: [
       { 
-        // PENTING: Ganti URL ini dengan link Vercel kamu yang sekarang
         url: process.env.BASE_URL || "https://pen-persada-ess-nusantara.vercel.app" 
       }
     ]
   },
-  // Pastikan path ini benar relatif terhadap folder api/
-  apis: [path.join(process.cwd(), 'routes/*.js')],
+  // Gunakan absolute path yang aman
+  apis: [path.join(process.cwd(), 'routes/*.js')], 
 };
 
 const swaggerSpec = swaggerJSDoc(swaggerOptions);
 
-// --- BAGIAN INI YANG SAYA PERBAIKI ---
-// Kita paksa Swagger pakai CSS dari CDN biar gak error di Vercel
 app.use(
   "/docs",
   swaggerUi.serve,
@@ -51,11 +66,10 @@ app.use(
     customJs:
       "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui-bundle.js",
     swaggerOptions: {
-      persistAuthorization: true, // Biar token gak ilang pas refresh
+      persistAuthorization: true,
     },
   })
 );
-// -------------------------------------
 
 // simple root message
 app.get("/", (req, res) => res.send("Persada ESS API Running. Open /docs for API docs"));
@@ -69,11 +83,9 @@ app.use("/api/transactions", transactionsRouter);
 app.use("/api/setoran", setoranRouter);
 app.use("/api/users", usersRouter);
 
-// Cuma jalanin listen kalau di localhost (bukan di Vercel)
 if (process.env.NODE_ENV !== 'production') {
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => console.log(`✅ Server jalan di http://localhost:${PORT}`));
 }
 
-// Wajib export buat Vercel
 export default app;
